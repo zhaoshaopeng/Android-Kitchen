@@ -16,7 +16,7 @@ cd META-INF/com/google/android
 if [ -e update-script ]; then
 	# Delete all known su lines
 	echo "Cleaning old su entries"
-	for su in 'bin/su' '.ext/.su' 'supersu' 'superuser'; do
+	for su in 'bin/su' '.ext/.su' 'supersu' 'superuser' 'daemonsu'; do
 		grep -vi "$su" update-script > tmp
 		mv tmp update-script
 	done
