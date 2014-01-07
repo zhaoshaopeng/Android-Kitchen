@@ -16,13 +16,16 @@ cd META-INF/com/google/android
 if [ -e update-script ]; then
 	# Delete all known su lines
 	echo "Cleaning old su entries"
-	for su in 'bin/su' '.ext/.su' 'supersu' 'superuser' 'daemonsu'; do
+	for su in 'bin/su' '.ext/.su' 'daemonsu' 'install-recovery.sh'; do
 		grep -vi "$su" update-script > tmp
 		mv tmp update-script
 	done
 
 	echo "Adding su entries"
 	echo "set_perm 0 0 06755 SYSTEM:xbin/su" >> update-script
+	if [ -e ../../../../system/etc/install-recovery.sh ]; then
+		echo "set_perm 0 0 0755 SYSTEM:etc/install-recovery.sh" >> update-script
+	fi
 	if [ -e ../../../../system/xbin/daemonsu ]; then
 		echo "set_perm 0 0 06755 SYSTEM:xbin/daemonsu" >> update-script
 	fi
